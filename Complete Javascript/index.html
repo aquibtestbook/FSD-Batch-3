@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+    <style>
+        p {
+            display: none;
+        }
+
+        #hideButton {
+            display: none;
+        }
+
+        img {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h1 id="greeting"></h1> -->
+    <!-- <p id="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet similique quia ut! Veniam, quod ea
+        rerum
+        consequatur minima qui placeat magni, dolor id dicta repudiandae illo pariatur sunt, harum dolores.</p>
+    <button id="showButton">Show</button>
+    <button id="hideButton">Hide</button> -->
+    <!-- <div id="memes"></div> -->
+    <form action="loginProcess.html" method="POST">
+        <input type="text" name="username">
+        <input type="submit">
+    </form>
+    <script>
+        let myRequest = new XMLHttpRequest(); //readyState = 0
+        myRequest.open("GET", "https://api.imgflip.com/get_memes", true); //readyState = 1
+        myRequest.send(); //readyState = 2
+        //readyState = 3 when server is processing
+        //readyState = 4 after response received
+        myRequest.onreadystatechange = () => {
+            if (myRequest.readyState === 4 && myRequest.status === 200) {
+                // console.log(myRequest.responseText);
+                let memeData = JSON.parse(myRequest.responseText);
+                // console.log(memeData);
+                let imageContainer = document.getElementById("memes");
+                memeData.data.memes.forEach(element => {
+                    let image = document.createElement("img");
+                    image.setAttribute("src", element.url);
+                    imageContainer.appendChild(image);
+                });
+                // console.log(memeData.data.memes[0].url);
+            }
+        }
+
+        // let showButton = document.getElementById("showButton");
+        // showButton.addEventListener("click", showContent);
+
+        // let hideButton = document.getElementById("hideButton").addEventListener("click", hideContent);
+
+        // function showContent() {
+        //     document.getElementById("content").style.display = "block";
+        //     document.getElementById("showButton").style.display = "none";
+        //     document.getElementById("hideButton").style.display = "inline";
+        // }
+
+        // function hideContent() {
+        //     document.getElementById("content").style.display = "none";
+        //     document.getElementById("hideButton").style.display = "none";
+        //     document.getElementById("showButton").style.display = "inline";
+        // }
+
+
+        // let input = prompt("What is your name?");
+        // let today = new Date();
+        // if (today.getHours() < 12) {
+        //     document.getElementById("greeting").innerHTML = "Good morning " + input;
+        // }
+        // else if (today.getHours() < 20) {
+        //     document.getElementById("greeting").innerHTML = "Good evening " + input;
+        // }
+        // else {
+        //     document.getElementById("greeting").innerHTML = "Good night " + input;
+        // }
+
+    </script>
+</body>
+
+</html>
